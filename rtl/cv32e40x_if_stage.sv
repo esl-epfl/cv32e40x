@@ -437,6 +437,10 @@ module cv32e40x_if_stage import cv32e40x_pkg::*;
       end else if (id_ready_i) begin
         if_id_pipe_o.instr_valid      <= 1'b0;
       end
+      // Update the xif_id whenever the ID stage attempts to offload an instruction
+      if (id_ready_i && xif_offloading_id_i) begin
+        if_id_pipe_o.xif_id <= xif_id;
+      end
     end
   end
 
